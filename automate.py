@@ -21,7 +21,7 @@ def sign_in_with_1password(op_path):
 
     service_id = "1PasswordCLI"
     password_identifier = (
-        "my1PasswordCLI"  # Use the same identifier as when storing the password
+        "my1PasswordCLI" 
     )
     password = keyring.get_password(service_id, password_identifier)
 

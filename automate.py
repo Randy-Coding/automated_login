@@ -13,7 +13,7 @@ def is_window_present():
     desktop = Desktop(backend="win32")
     window = desktop.window(title="1Password", visible_only=True)
 
-    if window.exists(timeout=2):
+    if window.exists(timeout=5):
         return True
     return False
 

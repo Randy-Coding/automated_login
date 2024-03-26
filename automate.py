@@ -2,8 +2,7 @@ from pywinauto import Desktop, Application
 from pywinauto.keyboard import send_keys
 import subprocess
 import time
-
-
+import keyring
 from pywinauto import Desktop
 
 
@@ -18,7 +17,19 @@ def is_window_present():
     return False
 
 
-def sign_in_with_1password(op_path, password):
+def sign_in_with_1password(op_path):
+
+    service_id = "1PasswordCLI"
+    password_identifier = (
+        "my1PasswordCLI"  # Use the same identifier as when storing the password
+    )
+    password = keyring.get_password(service_id, password_identifier)
+
+    if not password:
+        print(
+            "Failed to retrieve password. Please visit do_this_first.py to set your password."
+        )
+        return
 
     # Start the 1Password CLI sign-in process as a subprocess
     subprocess.Popen([op_path, "signin"])
@@ -30,6 +41,5 @@ def sign_in_with_1password(op_path, password):
 
 # Assuming a default op_path. Modify as needed.
 op_path = r"C:\Program Files\1Password CLI\op.exe"
-password = "input_password"  # Replace this with the actual password or a secure retrieval method.
 
-sign_in_with_1password(op_path, password)
+sign_in_with_1password(op_path)

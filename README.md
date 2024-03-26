@@ -7,8 +7,8 @@ This project intends to use facial recognition software to recognize your face, 
 
 Prerequisites:
 
-1.  You need pywinauto installed to your IDE. You can install it with this command:
-    pip install pywinauto
+1.  You need a few libraries for this code to work. You can install them all here.:
+    pip install pywinauto keyring pyinstaller
 
 
 2.  You need op.exe installed. You can install it by opening up windows powershell as an administrator and running this command:

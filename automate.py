@@ -4,36 +4,25 @@ import subprocess
 import time
 
 
+from pywinauto import Desktop
+
+
+def is_window_present():
+    desktop = Desktop(backend="win32")
+    window = desktop.window(title="1Password", visible_only=True)
+
+    if window.exists(timeout=5):
+        return True
+    return False
+
+
 def sign_in_with_1password(op_path, password):
-    try:
-        # Start the 1Password CLI sign-in process as a subprocess
-        subprocess.Popen([op_path, "signin"])
 
-        time.sleep(2)
-        desktop = Desktop(backend="uia")
+    # Start the 1Password CLI sign-in process as a subprocess
+    subprocess.Popen([op_path, "signin"])
 
-        # Now connect to the window of 1Password using pywinauto
-        # Replace 'Title_of_the_window' with the actual title if it's available
-        # Since the window may not have the title '1Password', you might need to
-        # use another attribute for the window specification, like control_id or automation_id
-        candidate_windows = [
-            w for w in desktop.windows() if "1Password" in w.window_text()
-        ]
-
-        # Next, refine the search among the candidate windows for a specific text
-        for w in candidate_windows:
-            if "Enter your password" in w.window_text():
-                dialog = w
-                break
-
-        if dialog is not None:
-            send_keys(password + "{ENTER}")
-            print("Password entry and authorization attempt made.")
-        else:
-            print("The 1Password sign-in window did not appear.")
-
-    except Exception as e:
-        print(f"An error occurred: {e}")
+    if is_window_present():
+        send_keys(password)
 
 
 # Assuming a default op_path. Modify as needed.

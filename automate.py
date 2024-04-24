@@ -20,9 +20,7 @@ def is_window_present():
 def sign_in_with_1password(op_path):
 
     service_id = "1PasswordCLI"
-    password_identifier = (
-        "my1PasswordCLI" 
-    )
+    password_identifier = "my1PasswordCLI"
     password = keyring.get_password(service_id, password_identifier)
 
     if not password:
@@ -41,5 +39,3 @@ def sign_in_with_1password(op_path):
 
 # Assuming a default op_path. Modify as needed.
 op_path = r"C:\Program Files\1Password CLI\op.exe"
-
-sign_in_with_1password(op_path)
